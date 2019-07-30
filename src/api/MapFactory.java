@@ -3,6 +3,9 @@ package api;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -22,6 +25,7 @@ public class MapFactory {
 	private ArrayList<ImageResourceManager> irm;
 	private JPanel mapBase;
 	private JLayeredPane map;
+	private GridBagLayout gridBagLayout;
 
 	public MapFactory(int width, int height) {
 		this.width = width;
@@ -44,16 +48,18 @@ public class MapFactory {
 		mapBase = new JPanel();
 		map = new JLayeredPane();
 		FlowLayout layout = new FlowLayout();
-		FlowLayout layout2 = new FlowLayout();
+//		FlowLayout layout2 = new FlowLayout();
+		gridBagLayout = new GridBagLayout();
 		layout.setAlignment(FlowLayout.CENTER);
 		layout.setVgap(0);
 		layout.setHgap(0);
-		layout2.setVgap(0);
-		layout2.setHgap(0);
+//		layout2.setVgap(0);
+//		layout2.setHgap(0);
 		mapBase.setLayout(layout);
 		mapBase.setBounds(0, 0, width, height);
 		mapBase.setBackground(Color.BLACK);
-		map.setLayout(layout2);
+//		map.setLayout(layout2);
+		map.setLayout(gridBagLayout);
 		map.setPreferredSize(new Dimension(subWidth * mapData[0].length, subHeight * mapData.length));
 		mapBase.add(map);
 	}
@@ -66,10 +72,11 @@ public class MapFactory {
 					if(mapData[i][ii] != null) {
 						BufferedImage image = irm.get(mapData[i][ii].id).getResource(mapData[i][ii].index);
 						DrawImage drawable = new DrawImage(image, subWidth, subHeight);
-						map.setLayer(drawable, mapLayer);
-						map.add(drawable);
+//						map.setLayer(drawable, mapLayer);
+//						map.add(drawable);
+						addToMap(drawable, i, ii, mapLayer);
 					} else {
-						map.add(Box.createHorizontalStrut(subWidth));
+//						map.add(Box.createHorizontalStrut(subWidth));
 					}
 				}
 			}
@@ -78,6 +85,18 @@ public class MapFactory {
 			throw new NullPointerException("createMapより先にsetImageResourceを呼び出す必要があります。");
 		}
 	}
+	
+    private void addToMap(DrawImage drawable, int x, int y, int mapLayer) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = y;
+        gbc.gridy = x;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gridBagLayout.setConstraints(drawable, gbc);
+        map.add(drawable);
+        map.setLayer(drawable, mapLayer);
+    }
 
 	public JPanel getMap() {
 		return mapBase;
