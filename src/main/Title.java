@@ -49,7 +49,7 @@ public class Title extends JLayeredPane {
 				{new Maps(crw, 83, false), new Maps(crw, 83, false), new Maps(crw, 83, false), new Maps(crw, 83, false), new Maps(crw, 83, false), new Maps(crw, 83, false), new Maps(crw, 83, false), new Maps(crw, 83, false)}
 		};
 		Maps[][] objMapData = {
-				{null, null, null, null, null, null, null, null},
+				{null, new Maps(cro, 2, false), null, null, null, null, null, null},
 				{null, null, null, null, null, null, null, null},
 				{null, null, new Maps(cro, 177, false), new Maps(cro, 178, false), new Maps(cro, 179, false), null, null, null},
 				{null, null, new Maps(cro, 193, false), new Maps(cro, 194, false), new Maps(cro, 195, false), null, null, null},

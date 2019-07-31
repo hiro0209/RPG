@@ -11,6 +11,9 @@ public class DrawImage extends JPanel {
 
 	public DrawImage(Image image, int width, int height) {
 		super();
+		
+		setOpaque(false);
+		
 		this.image = image;
 		setPreferredSize(new Dimension(width, height));
 		setMaximumSize(new Dimension(width, height));
